@@ -3,31 +3,17 @@ const desktopMenu   =   document.querySelector('.desktop-menu');
 const menuHamIcon   =   document.querySelector('.menu');
 const mobileMenu    =   document.querySelector('.mobile-menu');
 const menuCarrito   =   document.querySelector('.navbar-shopping-cart')
-const allCarrito    =   document.querySelector('.product-detail')
 const cardsContainer=   document.querySelector('.cards-container')
-
-menuEmail.addEventListener('click', toggleDesktopMenu);
-menuHamIcon.addEventListener('click', toggleMobileMenu);
-menuCarrito.addEventListener('click',toggleCarrito);
-
-function toggleDesktopMenu () {
-    desktopMenu.classList.toggle ('inactive')
-    allCarrito.classList.add ('inactive')
-    
-}
-
-function toggleMobileMenu () {
-    mobileMenu.classList.toggle ('inactive')
-    allCarrito.classList.add ('inactive')
-}
-
-function toggleCarrito () {
-    allCarrito.classList.toggle ('inactive')
-    desktopMenu.classList.add ('inactive')
-    mobileMenu.classList.add ('inactive')
-}
+const prodDetClose  =   document.querySelector('.product-detail-close')
+const allCarrito    =   document.querySelector('#shoppingCartContainer')
+const prodDetCont   =   document.querySelector('#productDetail')
 
 const productList = []; 
+
+
+
+
+/* Construyendo la lista de productos*/
 productList.push ({
     name: 'Bike',
     price: 120,
@@ -49,6 +35,47 @@ productList.push ({
 
 })
 
+menuEmail.addEventListener('click', toggleDesktopMenu);
+menuHamIcon.addEventListener('click', toggleMobileMenu);
+menuCarrito.addEventListener('click',toggleCarrito);
+prodDetClose.addEventListener('click',cerrarProdDetCont)
+
+
+
+
+
+function toggleDesktopMenu () {
+    desktopMenu.classList.toggle ('inactive')
+    allCarrito.classList.add ('inactive')
+    prodDetCont.classList.add ('inactive')
+    
+}
+
+function toggleMobileMenu () {
+    mobileMenu.classList.toggle ('inactive')
+    allCarrito.classList.add ('inactive')
+    prodDetCont.classList.add ('inactive')
+}
+
+function toggleCarrito () {
+    allCarrito.classList.toggle ('inactive')
+    desktopMenu.classList.add ('inactive')
+    mobileMenu.classList.add ('inactive')
+    prodDetCont.classList.add ('inactive')
+}
+
+function openProductDetailAside() {
+    prodDetCont.classList.remove ('inactive')
+    allCarrito.classList.add ('inactive')
+    desktopMenu.classList.add ('inactive')
+    mobileMenu.classList.add ('inactive')
+
+}
+
+function cerrarProdDetCont (){
+    prodDetCont.classList.add ('inactive')
+}
+
 function renderProducts (arr) {
     for (product of productList) {
         const productCard = document.createElement ('div')
@@ -56,6 +83,7 @@ function renderProducts (arr) {
 
         const img = document.createElement('img')
         img.setAttribute('src', product.image)
+        img.addEventListener('click', openProductDetailAside)
 
         const productInfo = document.createElement ('div')
         productInfo.classList.add('product-info')
